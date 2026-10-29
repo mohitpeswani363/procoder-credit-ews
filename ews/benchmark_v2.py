@@ -53,7 +53,7 @@ def load_horizon(archive, name):
                    'clean_rows': len(clean), 'clean_positives': int(clean.label.sum())}
 
 
-def pipeline(kind, **kw):
+def pipeline(kind, indicators=True, **kw):
     if kind == 'logistic':
         model = LogisticRegression(C=kw.get('C', 1.), max_iter=3000, random_state=SEED)
     else:
@@ -63,7 +63,7 @@ def pipeline(kind, **kw):
             min_samples_leaf=kw.get('leaf', 30), l2_regularization=kw.get('l2', 2.),
             early_stopping=False, random_state=SEED)
     return Pipeline([('clip', Winsorize()),
-                     ('impute', SimpleImputer(strategy='median', add_indicator=True, keep_empty_features=True)),
+                     ('impute', SimpleImputer(strategy='median', add_indicator=indicators, keep_empty_features=True)),
                      ('scale', StandardScaler()), ('model', model)])
 
 
@@ -106,17 +106,17 @@ def split_for(clean, horizon, out, root):
     return train, test, groups
 
 
-def fit_select(X, y, groups, train):
+def fit_select(X, y, groups, train, indicators=True):
     cv = list(StratifiedGroupKFold(3, shuffle=True, random_state=SEED + 1).split(X.iloc[train], y[train], groups[train]))
     rows = []
     for c in CONFIGS:
-        p = cross_val_predict(pipeline(**c), X.iloc[train], y[train], cv=cv, method='predict_proba')[:, 1]
+        p = cross_val_predict(pipeline(indicators=indicators, **c), X.iloc[train], y[train], cv=cv, method='predict_proba')[:, 1]
         rows.append({'config': c, 'dev_ap': float(average_precision_score(y[train], p))})
     best = max(rows, key=lambda r: r['dev_ap'])
     # Out-of-fold calibrated development scores (for threshold selection only).
-    cal = CalibratedClassifierCV(pipeline(**best['config']), method='sigmoid', cv=3, ensemble=True)
+    cal = CalibratedClassifierCV(pipeline(indicators=indicators, **best['config']), method='sigmoid', cv=3, ensemble=True)
     pdev = cross_val_predict(cal, X.iloc[train], y[train], cv=cv, method='predict_proba')[:, 1]
-    model = CalibratedClassifierCV(pipeline(**best['config']), method='sigmoid', cv=cv, ensemble=True)
+    model = CalibratedClassifierCV(pipeline(indicators=indicators, **best['config']), method='sigmoid', cv=cv, ensemble=True)
     model.fit(X.iloc[train], y[train])
     return model, best, rows, pdev
 
@@ -206,7 +206,7 @@ def plots(summary, out):
     axes[0].plot(np.arange(len(hs)), zz, 'k--o', label="Altman Z'' baseline")
     axes[0].set_xticks(range(len(hs)), ['1 yr (4q)', '2 yr (8q)', '3 yr (12q)'])
     axes[0].set(ylabel='Hold-out average precision', title='Signal by forecast horizon')
-    axes[0].legend(fontsize=8, frameon=False)
+    axes[0].set_ylim(0, 1.05); axes[0].legend(fontsize=7.5, frameon=False, ncol=2, loc='upper center')
     cc = pd.read_csv(out / 'capacity_curve_1y.csv')
     axes[1].plot(cc.capacity_rate * 100, cc.recall * 100, 'o-', color='#087f8c', label='Recall %')
     ax2 = axes[1].twinx()
@@ -217,6 +217,37 @@ def plots(summary, out):
     for a in list(axes) + [ax2]:
         a.spines[['top']].set_visible(False)
     fig.savefig(out / 'benchmark_v2.png', dpi=170); plt.close(fig)
+
+
+def run_transfer_safe(root):
+    """Deployed transfer model: identical protocol, but NO missing-value indicators.
+
+    In the Polish data a missing ratio is itself a bankruptcy signal (failing firms
+    file incomplete statements). In the Indian panel, missingness is caused by our
+    table extraction, not by the borrower. SHAP on the first replay showed missing
+    sales growth (X21) dominating several Indian scores, so the deployed model must
+    not learn from missingness. Missing inputs are median-imputed (neutral).
+    """
+    root = Path(root); out = root / 'results/v2/benchmark'
+    archive = root / 'data/raw/polish-bankruptcy.zip'
+    res = {}
+    for h in ['1y', '2y']:
+        clean, _ = load_horizon(archive, HORIZONS[h])
+        train, test, groups = split_for(clean, h, out, root)
+        y = clean.label.to_numpy(dtype=int); X = clean[FEATURES]
+        model, best, rows, pdev = fit_select(X, y, groups, train, indicators=False)
+        policy, _ = optimize_policy(y[train], pdev)
+        ptest = model.predict_proba(X.iloc[test])[:, 1]
+        m = metrics(y[test], ptest)
+        m.update(dev_selected_config=best['config'], dev_ap=best['dev_ap'],
+                 dev_cost_threshold=float(policy['threshold']) if np.isfinite(policy['threshold']) else None,
+                 capacity_5pct_threshold=float(np.quantile(pdev, .95)))
+        res[h] = m
+        joblib.dump(model, out / f'model_{h}_transfer_safe.joblib')
+        pd.DataFrame({'score': pdev}).to_csv(out / f'development_oof_{h}_transfer_safe.csv', index=False)
+        print('transfer-safe', h, round(m['average_precision'], 4), m['top5']['recall'], flush=True)
+    (out / 'metrics_transfer_safe.json').write_text(json.dumps(res, indent=2, default=float))
+    return res
 
 
 if __name__ == '__main__':

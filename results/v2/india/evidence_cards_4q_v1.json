@@ -1,0 +1,506 @@
+[
+  {
+    "model": "v1",
+    "entity_id": "ALOK",
+    "role": "case",
+    "case_group": "ALOK",
+    "cutoff": "2014-03-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.05397486759106309,
+    "base": 0.05782209480677748,
+    "altman_zpp": 1.9973382478716262,
+    "interest_cover": 1.5001087382019052,
+    "overlay_count": 1.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.5008569849482081,
+        "contribution": 0.022907744600129565,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.7995707947425098,
+        "contribution": 0.012614446179418643,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X20",
+        "label": "Inventory days",
+        "value": 135.05121069841627,
+        "contribution": 0.011147769079800035,
+        "investigate": "Check inventory realisation and obsolescence."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "WELSPUN",
+    "role": "peer",
+    "case_group": "ALOK",
+    "cutoff": "2014-03-31",
+    "accounts_period_end": "2013-03-31",
+    "score": 0.02543158510329192,
+    "base": 0.05782209480677748,
+    "altman_zpp": NaN,
+    "interest_cover": 2.2252096712441576,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.2683429066868972,
+        "contribution": 0.009753278864206917,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.7828558499957577,
+        "contribution": 0.009118977667726012,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.8615413331824996,
+        "contribution": 0.005496163304615885,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "BHARATFORGE",
+    "role": "peer",
+    "case_group": "AMTEK",
+    "cutoff": "2014-06-30",
+    "accounts_period_end": "2013-03-31",
+    "score": 0.007175194885353874,
+    "base": 0.05782209480677748,
+    "altman_zpp": 4.005915477534901,
+    "interest_cover": 3.2747409672728702,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.6438128498273772,
+        "contribution": 0.007001129097875564,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.5506008013277034,
+        "contribution": 0.000758027296776571,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.8161978652930181,
+        "contribution": -0.00041030049754621836,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "BHUSHAN",
+    "role": "case",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.05910932796129537,
+    "base": 0.05782209480677748,
+    "altman_zpp": 0.8280294608426001,
+    "interest_cover": 2.294572965546584,
+    "overlay_count": 2.0,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.2947774130797877,
+        "contribution": 0.06692960414866263,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.29537185303819036,
+        "contribution": 0.021210785766670813,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.29489623420112054,
+        "contribution": 0.016278621883883546,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "JSW",
+    "role": "peer",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.05417492565445583,
+    "base": 0.05782209480677748,
+    "altman_zpp": 0.5149268578407478,
+    "interest_cover": 2.3965879632873257,
+    "overlay_count": 1.0,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.3350559647111871,
+        "contribution": 0.05898601182350858,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.633751690960938,
+        "contribution": 0.014803247395687594,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X4",
+        "label": "Current ratio",
+        "value": 0.6130552472949229,
+        "contribution": 0.006382438342170974,
+        "investigate": "Check accessible cash, restricted balances and liability maturities."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "ELECTROSTEEL",
+    "role": "case",
+    "case_group": "ELECTROSTEEL",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.10860943788376361,
+    "base": 0.05782209480677748,
+    "altman_zpp": -1.1154028405481644,
+    "interest_cover": -0.4159660842629236,
+    "overlay_count": 3.0,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.27689687071233954,
+        "contribution": 0.02730096719523371,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.08886059983252559,
+        "contribution": 0.01599706989640915,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.9183912065087184,
+        "contribution": 0.015939657789602813,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "SSWL",
+    "role": "peer",
+    "case_group": "ELECTROSTEEL",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.003896504358291484,
+    "base": 0.05782209480677748,
+    "altman_zpp": NaN,
+    "interest_cover": 1.6788193016990798,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.5421078224868762,
+        "contribution": 0.0008812935750294959,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.8446514854048408,
+        "contribution": -1.3292710739264222e-05,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      },
+      {
+        "feature": "X20",
+        "label": "Inventory days",
+        "value": 43.705630723646074,
+        "contribution": -0.0008438769352224233,
+        "investigate": "Check inventory realisation and obsolescence."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "ITNL",
+    "role": "case",
+    "case_group": "ITNL",
+    "cutoff": "2017-03-31",
+    "accounts_period_end": "2016-03-31",
+    "score": 0.10344742496194687,
+    "base": 0.05782209480677748,
+    "altman_zpp": 0.6168388450625114,
+    "interest_cover": 1.1695622453938765,
+    "overlay_count": 1.0,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.7231254348858529,
+        "contribution": 0.030272400087280715,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.2183629287271607,
+        "contribution": 0.023840556592554036,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X6",
+        "label": "Retained earnings / assets",
+        "value": 0.059723144495510416,
+        "contribution": 0.020483977921417117,
+        "investigate": "Verify the earned-reserve buffer against further losses."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "ASHOKA",
+    "role": "peer",
+    "case_group": "ITNL",
+    "cutoff": "2017-03-31",
+    "accounts_period_end": "2016-03-31",
+    "score": 0.06484862731839114,
+    "base": 0.05782209480677748,
+    "altman_zpp": 0.6405772437963939,
+    "interest_cover": 1.1257513379761916,
+    "overlay_count": 1.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.16987768619828608,
+        "contribution": 0.016646238846723956,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.8461195671641796,
+        "contribution": 0.01464901520725298,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.1435053881633059,
+        "contribution": 0.013860541281599786,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "JYOTI",
+    "role": "case",
+    "case_group": "JYOTI",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.07935560091385226,
+    "base": 0.05782209480677748,
+    "altman_zpp": NaN,
+    "interest_cover": NaN,
+    "overlay_count": 1.0,
+    "top_drivers": [
+      {
+        "feature": "X44",
+        "label": "Receivable days",
+        "value": 418.41894343142695,
+        "contribution": 0.02077211738270926,
+        "investigate": "Check collection delays, revenue recognition and receivable ageing."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.5605412228675238,
+        "contribution": 0.019875876278265682,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.8938461604638142,
+        "contribution": 0.01364511386829061,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "KALPATARU",
+    "role": "peer",
+    "case_group": "JYOTI",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.014717349755594508,
+    "base": 0.05782209480677748,
+    "altman_zpp": 2.5775655248673073,
+    "interest_cover": 1.5905505666022057,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.8121635466827672,
+        "contribution": 0.009107693979159137,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.7364866003182717,
+        "contribution": 0.007314063849136743,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": 0.33623111188614974,
+        "contribution": 0.005617701894677323,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "LANCO",
+    "role": "case",
+    "case_group": "LANCO",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.059448699775027626,
+    "base": 0.05782209480677748,
+    "altman_zpp": NaN,
+    "interest_cover": NaN,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.4903862794166527,
+        "contribution": 0.025901438490681196,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.9830763453472005,
+        "contribution": 0.012512372778334547,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      },
+      {
+        "feature": "X8",
+        "label": "Equity / liabilities",
+        "value": -0.008647280114944306,
+        "contribution": 0.009924160841028502,
+        "investigate": "Assess the equity cushion behind creditor claims."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "NTPC",
+    "role": "peer",
+    "case_group": "LANCO",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2014-03-31",
+    "score": 0.014619454765931893,
+    "base": 0.05782209480677748,
+    "altman_zpp": 3.1737323622059153,
+    "interest_cover": 4.655343155160518,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.39801628604849043,
+        "contribution": 0.007762067201644028,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X44",
+        "label": "Receivable days",
+        "value": 30.832606226014722,
+        "contribution": 0.003180182453216543,
+        "investigate": "Check collection delays, revenue recognition and receivable ageing."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.5616679130011694,
+        "contribution": 0.0015544405299263999,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      }
+    ]
+  },
+  {
+    "model": "v1",
+    "entity_id": "JINDALSAW",
+    "role": "peer",
+    "case_group": "MONNET",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.0318025337459807,
+    "base": 0.05782209480677748,
+    "altman_zpp": NaN,
+    "interest_cover": 2.0226786592231085,
+    "overlay_count": 0.0,
+    "top_drivers": [
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.6449496847428454,
+        "contribution": 0.014396360965300054,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      },
+      {
+        "feature": "X20",
+        "label": "Inventory days",
+        "value": 112.66438713056432,
+        "contribution": 0.010905918476164103,
+        "investigate": "Check inventory realisation and obsolescence."
+      },
+      {
+        "feature": "X2",
+        "label": "Liabilities / assets",
+        "value": 0.6041098788062861,
+        "contribution": 0.0026126881779385317,
+        "investigate": "Review funding dependence, creditor protection and refinancing schedule."
+      }
+    ]
+  }
+]

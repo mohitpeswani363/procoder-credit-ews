@@ -99,5 +99,5 @@ def test_altman_zpp_and_beneish_proxy():
 def test_replay_thresholds_fixed_from_benchmark_only():
     import json
     s = json.loads((ROOT / 'results/v2/india/replay_summary.json').read_text())
-    dev = pd.read_csv(ROOT / 'results/v2/benchmark/development_oof_1y.csv')
+    dev = pd.read_csv(ROOT / 'results/v2/benchmark/development_oof_1y_transfer_safe.csv')
     assert s['thresholds']['1y']['capacity_5pct'] == pytest.approx(float(np.quantile(dev.score, .95)))

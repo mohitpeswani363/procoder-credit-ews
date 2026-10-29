@@ -1,12 +1,64 @@
-# procoder | Zeckathon Problem Statement 02
+# procoder | Zeckathon PS2: Corporate Credit Early-Warning System
 
-**Team:** procoder  
-**Members:** Mantra Khandelwal, Mohit Peshwani, Om Kumar, Omkar Mainkar  
-**Repository:** https://github.com/mantrakhandelwaljee-lgtm/procoder-zeckathon-credit-ews
+**Team procoder:** Mantra Khandelwal, Mohit Peshwani, Om Kumar, Omkar Mainkar
+**Track:** PS2 Risk & Fraud Analytics: early-warning system for listed corporate borrowers, credit desk capacity 40 of 800 (5%), missed default = 20x false alert.
 
-Read [the solution report](submission/Zeckathon_Credit_EWS_Report.pdf) or its [editable Markdown version](submission/Zeckathon_Credit_EWS_Report.md). Status: benchmark and pipeline implemented; Indian historical evaluation remains incomplete. This repository begins with a truthful snapshot of the existing work; the initial commit is not a reconstruction of earlier development history.
+**Final report:** [submission/Zeckathon_PS2_procoder_Final_Report.pdf](submission/Zeckathon_PS2_procoder_Final_Report.pdf) · **AI disclosure:** [docs/AI_DISCLOSURE.md](docs/AI_DISCLOSURE.md) · **Demo video:** not submitted (optional for PS2)
 
-# Corporate credit early-warning research build
+## Results at a glance
+
+| | v1 (12 ratios) | **v2 (25 ratios)** |
+|---|---:|---:|
+| Polish 1-yr hold-out average precision | 0.40 | **0.73** |
+| Recall inside 5% review budget | 36% | **56%** |
+| Error cost 20·FN + FP (no alerts = 1,620) | 1,069 | **733** |
+| 2-yr / 3-yr horizon average precision | 0.33 / 0.29 | **0.69 / 0.66** |
+
+**Indian case test** (11 defaulters vs matched listed peers, point-in-time, accounts public at FY-end + 6 months):
+- Four quarters before first default, the frozen v1 ranker placed **4 of 6** scorable defaulters in the top 5% of non-defaulting listed controls (AUC vs matched peers 0.93).
+- Altman Z'' < 1.10 caught 3 of 6, with 4/19 peer false alerts.
+- Polish-calibrated probabilities do not transfer as absolute thresholds. Ranks do, and the 40/800 rule is a rank rule.
+- Only 6 of 11 defaulters had enough extracted data at the 4-quarter cutoff. Sensitivities: +9-month lag, and restructuring counted as default.
+
+## Run
+
+Python 3.12+ (validated on 3.12 and 3.13). Poppler `pdftotext` is only needed to re-extract PDFs.
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python run_v2.py              # v2 benchmark (all horizons, ~25 min) + Indian replay + report PDF + tests
+python run_v2.py --no-train   # reuse saved v2 models: replay, Shapley cards, figures, PDF (~2 min)
+python run.py --test          # rebuild the frozen v1 research build
+python -m pytest tests -q     # 76 tests
+```
+
+## How it works
+
+| Stage | Module | What it does |
+|---|---|---|
+| Collect | `ews/collect.py` | 196 public PDFs (179 annual reports), original URLs and SHA-256 hashes |
+| Extract | `ews/extract.py` | 4,309 statement-row candidates with PDF page and raw line |
+| Point-in-time panel | `ews/panel.py` | 205 firm-years; original columns beat restated comparatives; public at FY-end + 6 months; arithmetic QC; Alok 18-month periods handled |
+| Features | `ews/features.py` | 25 Polish ratios rebuildable from Schedule III / Ind-AS: interest cover, cash earnings / liabilities, short-term liabilities, growth and more |
+| Benchmark | `ews/benchmark_v2.py` | Grouped frozen split, 13-config search, sigmoid calibration, 1/2/3-yr horizons, capacity curve, transfer-safe model |
+| Screens | `ews/accounting.py`, `ews/replay.py` | Altman Z'', Beneish M (8-var; labelled proxy when COGS/SG&A missing), Piotroski F, interest cover, CFO |
+| Explain | `ews/shapley.py` | Dependency-free permutation Shapley, exactly additive, top-3 drivers plus an investigation question |
+| Replay | `ews/replay.py`, `ews/percentile.py` | 4q/8q cutoffs before first documented default; thresholds fixed on Polish development data; rank among controls |
+| Queue | `ews/policy.py`, `docs/OPERATING_POLICY.md` | floor(5% x N) = 40 of 800, 20:1 cost, analyst → senior officer → credit committee |
+| Report | `ews/final_report.py` | Builds the PDF from saved results; no hand-typed numbers |
+
+Key outputs: `results/v2/benchmark/metrics_v2.json`, `results/v2/india/replay_summary.json`, `results/v2/india/defaulter_percentiles.csv`, `results/v2/india/evidence_cards_4q_v1.json`, `results/v2/india/panel_firm_years.csv`.
+
+## Data sources
+
+UCI Polish Companies Bankruptcy (dataset 365); BSE annual-report archive; IBBI CIRP records; Axis Trustee default notices; ICRA/CARE rating rationales; Business Standard and BloombergQuint for three dated restructuring/default events. Every Indian value links to its source document, page and raw line (`data/curated/`). The full bibliography is in the report.
+
+## Integrity
+
+No look-ahead: availability lag, originals-first, and thresholds fixed before any Indian score was seen (tested in `tests/test_v2.py`). Frozen splits are checked on every run. Limitations (small Indian sample, machine-extracted Tier-B values, transferred model) are stated in the report.
+
+## Appendix: v1 research build (original README)
 
 **Start with [RESULTS.md](RESULTS.md) and [the project audit](docs/PROJECT_AUDIT.md).** The benchmark and core pipeline run. The full Indian competition submission is incomplete: a publication-verified three-year panel, qualified controls, complete M/F inputs and primary Indian lead-time evaluation are still required. No Indian recall, fraud accuracy or loss-saving claim is fabricated.
 

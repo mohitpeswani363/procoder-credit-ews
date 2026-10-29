@@ -60,7 +60,7 @@ def plot(df, out):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 2, figsize=(11, 3.6), layout='constrained', sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.9), layout='constrained', sharey=True)
     for ax, L in zip(axes, [4, 8]):
         d = df[df.lead_q == L].reset_index(drop=True)
         x = np.arange(len(d)); w = .27
@@ -72,7 +72,8 @@ def plot(df, out):
         ax.set_title(f'{L} quarters before first default', fontsize=10)
         ax.spines[['top', 'right']].set_visible(False)
     axes[0].set_ylabel('Percentile among non-defaulting\nlisted controls at the same cutoff')
-    axes[0].legend(frameon=False, fontsize=7.5, loc='lower left')
+    h, l = axes[0].get_legend_handles_labels()
+    fig.legend(h, l, frameon=False, fontsize=8, ncol=3, loc='outside upper center')
     fig.savefig(out / 'defaulter_percentiles.png', dpi=170); plt.close(fig)
 
 

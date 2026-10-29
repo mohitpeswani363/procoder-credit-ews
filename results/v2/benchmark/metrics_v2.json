@@ -1,0 +1,461 @@
+{
+  "protocol": "Version-2 benchmark: richer transferable features, model search, horizon decay.\n\nProtocol (unchanged in spirit from v1, extended):\n* Exact-duplicate and conflicting records removed; records with identical\n  12-ratio vectors are grouped so no near-duplicate crosses the hold-out\n  boundary (grouping on the coarsest deployed vector also groups the 25- and\n  64-feature vectors).\n* The 1-year (5year.arff) hold-out is the SAME frozen split used in v1.\n  2-year and 3-year horizon files get their own frozen grouped splits.\n* Configuration selection on grouped development CV only; sigmoid calibration\n  as a CV ensemble on development; hold-out touched once.\n* Polish data has no calendar or issuer identifiers, so a calendar split is not\n  possible. \"Time-aware\" is implemented as (i) forecast-horizon validation\n  (features measured 1, 2 and 3 years before the outcome) and (ii) the\n  out-of-time, out-of-domain Indian replay (ews/panel.py).",
+  "seed": 271828,
+  "features_v2": [
+    "X1",
+    "X2",
+    "X3",
+    "X4",
+    "X6",
+    "X7",
+    "X8",
+    "X9",
+    "X20",
+    "X23",
+    "X44",
+    "X46",
+    "X10",
+    "X16",
+    "X18",
+    "X21",
+    "X22",
+    "X26",
+    "X27",
+    "X40",
+    "X50",
+    "X51",
+    "X53",
+    "X59",
+    "X13"
+  ],
+  "horizons": {
+    "1y": {
+      "file": "5year.arff",
+      "audit": {
+        "raw_rows": 5910,
+        "raw_positives": 410,
+        "clean_rows": 5850,
+        "clean_positives": 408
+      },
+      "dev_rows": 4680,
+      "holdout_rows": 1170,
+      "holdout_positives": 81,
+      "feature_sets": {
+        "v1_12": {
+          "average_precision": 0.4189681259917662,
+          "roc_auc": 0.8611139452890295,
+          "brier": 0.05060621194837638,
+          "top5": {
+            "tp": 28,
+            "fp": 30,
+            "fn": 53,
+            "tn": 1059,
+            "cost": 1090,
+            "recall": 0.345679012345679,
+            "precision": 0.4827586206896552,
+            "alerts": 58
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 20
+          },
+          "dev_ap": 0.42084137242090336,
+          "dev_cost_threshold": 0.27631070327022217,
+          "threshold_policy_holdout": {
+            "tp": 28,
+            "fp": 30,
+            "fn": 53,
+            "tn": 1059,
+            "cost": 1090,
+            "recall": 0.345679012345679,
+            "precision": 0.4827586206896552,
+            "alerts": 58
+          },
+          "ap_bootstrap_95": [
+            0.3305425282654698,
+            0.5218635172207065
+          ]
+        },
+        "v2_25": {
+          "average_precision": 0.7321207581421395,
+          "roc_auc": 0.9460939359929259,
+          "brier": 0.03215134363323749,
+          "top5": {
+            "tp": 45,
+            "fp": 13,
+            "fn": 36,
+            "tn": 1076,
+            "cost": 733,
+            "recall": 0.5555555555555556,
+            "precision": 0.7758620689655172,
+            "alerts": 58
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 5,
+            "lr": 0.03,
+            "iters": 400,
+            "leaf": 20
+          },
+          "dev_ap": 0.7124262998706785,
+          "dev_cost_threshold": 0.40056008394367154,
+          "threshold_policy_holdout": {
+            "tp": 45,
+            "fp": 13,
+            "fn": 36,
+            "tn": 1076,
+            "cost": 733,
+            "recall": 0.5555555555555556,
+            "precision": 0.7758620689655172,
+            "alerts": 58
+          },
+          "ap_bootstrap_95": [
+            0.6466497939180559,
+            0.8041328959442867
+          ]
+        },
+        "all_64_upper_bound": {
+          "average_precision": 0.8260003382106578,
+          "roc_auc": 0.971986985454999,
+          "brier": 0.025702687069357136,
+          "top5": {
+            "tp": 50,
+            "fp": 8,
+            "fn": 31,
+            "tn": 1081,
+            "cost": 628,
+            "recall": 0.6172839506172839,
+            "precision": 0.8620689655172413,
+            "alerts": 58
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 20
+          },
+          "dev_ap": 0.7866395230538006,
+          "dev_cost_threshold": 0.4522997746369247,
+          "threshold_policy_holdout": {
+            "tp": 50,
+            "fp": 7,
+            "fn": 31,
+            "tn": 1082,
+            "cost": 627,
+            "recall": 0.6172839506172839,
+            "precision": 0.8771929824561403,
+            "alerts": 57
+          },
+          "ap_bootstrap_95": [
+            0.757105937377642,
+            0.887501044914918
+          ]
+        }
+      },
+      "altman_zpp_baseline": {
+        "average_precision": 0.2768332271644346,
+        "top5": {
+          "tp": 17,
+          "fp": 41,
+          "fn": 64,
+          "tn": 1048,
+          "cost": 1321,
+          "recall": 0.20987654320987653,
+          "precision": 0.29310344827586204,
+          "alerts": 58
+        }
+      }
+    },
+    "2y": {
+      "file": "4year.arff",
+      "audit": {
+        "raw_rows": 9792,
+        "raw_positives": 515,
+        "clean_rows": 9710,
+        "clean_positives": 513
+      },
+      "dev_rows": 7767,
+      "holdout_rows": 1943,
+      "holdout_positives": 103,
+      "feature_sets": {
+        "v1_12": {
+          "average_precision": 0.32751296251985035,
+          "roc_auc": 0.7866900590966653,
+          "brier": 0.04287056318164555,
+          "top5": {
+            "tp": 32,
+            "fp": 65,
+            "fn": 71,
+            "tn": 1775,
+            "cost": 1485,
+            "recall": 0.3106796116504854,
+            "precision": 0.32989690721649484,
+            "alerts": 97
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 40
+          },
+          "dev_ap": 0.2950532019890343,
+          "dev_cost_threshold": 0.15434178911197802,
+          "threshold_policy_holdout": {
+            "tp": 32,
+            "fp": 65,
+            "fn": 71,
+            "tn": 1775,
+            "cost": 1485,
+            "recall": 0.3106796116504854,
+            "precision": 0.32989690721649484,
+            "alerts": 97
+          },
+          "ap_bootstrap_95": [
+            0.2424890002217628,
+            0.4125715452080577
+          ]
+        },
+        "v2_25": {
+          "average_precision": 0.6919403082650655,
+          "roc_auc": 0.9186339172646687,
+          "brier": 0.026017649128345165,
+          "top5": {
+            "tp": 65,
+            "fp": 32,
+            "fn": 38,
+            "tn": 1808,
+            "cost": 792,
+            "recall": 0.6310679611650486,
+            "precision": 0.6701030927835051,
+            "alerts": 97
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.03,
+            "iters": 400,
+            "leaf": 20
+          },
+          "dev_ap": 0.6137601739380778,
+          "dev_cost_threshold": 0.1997044129711744,
+          "threshold_policy_holdout": {
+            "tp": 65,
+            "fp": 32,
+            "fn": 38,
+            "tn": 1808,
+            "cost": 792,
+            "recall": 0.6310679611650486,
+            "precision": 0.6701030927835051,
+            "alerts": 97
+          },
+          "ap_bootstrap_95": [
+            0.612019172173235,
+            0.7710138679465872
+          ]
+        },
+        "all_64_upper_bound": {
+          "average_precision": 0.7586294494373453,
+          "roc_auc": 0.9477522161249473,
+          "brier": 0.02279617711207683,
+          "top5": {
+            "tp": 67,
+            "fp": 30,
+            "fn": 36,
+            "tn": 1810,
+            "cost": 750,
+            "recall": 0.6504854368932039,
+            "precision": 0.6907216494845361,
+            "alerts": 97
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 20
+          },
+          "dev_ap": 0.7109097635388212,
+          "dev_cost_threshold": 0.19229036979638733,
+          "threshold_policy_holdout": {
+            "tp": 67,
+            "fp": 30,
+            "fn": 36,
+            "tn": 1810,
+            "cost": 750,
+            "recall": 0.6504854368932039,
+            "precision": 0.6907216494845361,
+            "alerts": 97
+          },
+          "ap_bootstrap_95": [
+            0.6903902356574938,
+            0.8225011554408923
+          ]
+        }
+      },
+      "altman_zpp_baseline": {
+        "average_precision": 0.11495367499737195,
+        "top5": {
+          "tp": 12,
+          "fp": 85,
+          "fn": 91,
+          "tn": 1755,
+          "cost": 1905,
+          "recall": 0.11650485436893204,
+          "precision": 0.12371134020618557,
+          "alerts": 97
+        }
+      }
+    },
+    "3y": {
+      "file": "3year.arff",
+      "audit": {
+        "raw_rows": 10503,
+        "raw_positives": 495,
+        "clean_rows": 10416,
+        "clean_positives": 493
+      },
+      "dev_rows": 8333,
+      "holdout_rows": 2083,
+      "holdout_positives": 98,
+      "feature_sets": {
+        "v1_12": {
+          "average_precision": 0.290640192522787,
+          "roc_auc": 0.8099933172261348,
+          "brier": 0.039310032030873104,
+          "top5": {
+            "tp": 31,
+            "fp": 73,
+            "fn": 67,
+            "tn": 1912,
+            "cost": 1413,
+            "recall": 0.3163265306122449,
+            "precision": 0.2980769230769231,
+            "alerts": 104
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.03,
+            "iters": 400,
+            "leaf": 20
+          },
+          "dev_ap": 0.31807264800746665,
+          "dev_cost_threshold": 0.13955682006151693,
+          "threshold_policy_holdout": {
+            "tp": 31,
+            "fp": 73,
+            "fn": 67,
+            "tn": 1912,
+            "cost": 1413,
+            "recall": 0.3163265306122449,
+            "precision": 0.2980769230769231,
+            "alerts": 104
+          },
+          "ap_bootstrap_95": [
+            0.20816909729169228,
+            0.38205025413405785
+          ]
+        },
+        "v2_25": {
+          "average_precision": 0.6612361438938159,
+          "roc_auc": 0.9303089497763841,
+          "brier": 0.02509040992450839,
+          "top5": {
+            "tp": 57,
+            "fp": 47,
+            "fn": 41,
+            "tn": 1938,
+            "cost": 867,
+            "recall": 0.5816326530612245,
+            "precision": 0.5480769230769231,
+            "alerts": 104
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 40
+          },
+          "dev_ap": 0.528169935705606,
+          "dev_cost_threshold": 0.19833575751105165,
+          "threshold_policy_holdout": {
+            "tp": 57,
+            "fp": 47,
+            "fn": 41,
+            "tn": 1938,
+            "cost": 867,
+            "recall": 0.5816326530612245,
+            "precision": 0.5480769230769231,
+            "alerts": 104
+          },
+          "ap_bootstrap_95": [
+            0.5740109661916954,
+            0.7368590614867462
+          ]
+        },
+        "all_64_upper_bound": {
+          "average_precision": 0.7333872026073911,
+          "roc_auc": 0.943926386675577,
+          "brier": 0.02149088398944704,
+          "top5": {
+            "tp": 65,
+            "fp": 39,
+            "fn": 33,
+            "tn": 1946,
+            "cost": 699,
+            "recall": 0.6632653061224489,
+            "precision": 0.625,
+            "alerts": 104
+          },
+          "dev_selected_config": {
+            "kind": "hist_boost",
+            "depth": 8,
+            "lr": 0.08,
+            "iters": 200,
+            "leaf": 20
+          },
+          "dev_ap": 0.6165416375192628,
+          "dev_cost_threshold": 0.1744536008516842,
+          "threshold_policy_holdout": {
+            "tp": 65,
+            "fp": 39,
+            "fn": 33,
+            "tn": 1946,
+            "cost": 699,
+            "recall": 0.6632653061224489,
+            "precision": 0.625,
+            "alerts": 104
+          },
+          "ap_bootstrap_95": [
+            0.6597471831350507,
+            0.8065192803730311
+          ]
+        }
+      },
+      "altman_zpp_baseline": {
+        "average_precision": 0.1320345763880654,
+        "top5": {
+          "tp": 18,
+          "fp": 86,
+          "fn": 80,
+          "tn": 1899,
+          "cost": 1686,
+          "recall": 0.1836734693877551,
+          "precision": 0.17307692307692307,
+          "alerts": 104
+        }
+      }
+    }
+  },
+  "operating_point_1y": {
+    "dev_cost_threshold": 0.40056008394367154,
+    "top5_equivalent_threshold": 0.39818728565768646,
+    "note": "Score at the 95th percentile of development out-of-fold scores = the 5%-capacity cut-off for a population with Polish-like risk mix."
+  }
+}

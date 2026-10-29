@@ -206,7 +206,7 @@ def plots(summary, out):
     axes[0].plot(np.arange(len(hs)), zz, 'k--o', label="Altman Z'' baseline")
     axes[0].set_xticks(range(len(hs)), ['1 yr (4q)', '2 yr (8q)', '3 yr (12q)'])
     axes[0].set(ylabel='Hold-out average precision', title='Signal by forecast horizon')
-    axes[0].legend(fontsize=8, frameon=False)
+    axes[0].set_ylim(0, 1.05); axes[0].legend(fontsize=7.5, frameon=False, ncol=2, loc='upper center')
     cc = pd.read_csv(out / 'capacity_curve_1y.csv')
     axes[1].plot(cc.capacity_rate * 100, cc.recall * 100, 'o-', color='#087f8c', label='Recall %')
     ax2 = axes[1].twinx()

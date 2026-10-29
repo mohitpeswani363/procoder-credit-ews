@@ -184,6 +184,15 @@ def build_panel(root, lag_months=6):
         std = pd.concat([std, rev], ignore_index=True)
     # fill sales_prior from the panel itself where the earlier period is ORIGINALLY available no later
     std = std.sort_values(['entity_id', 'period_end']).reset_index(drop=True)
+    # Prior-year sales fallback: the previous period's ORIGINAL sales figure, which was public
+    # earlier than the current report, so using it is point-in-time safe. 12-month periods only.
+    prev = std[['entity_id', 'period_end', 'sales', 'period_months']].copy()
+    prev['next_end'] = (pd.to_datetime(prev.period_end) + pd.DateOffset(years=1)).dt.strftime('%Y-%m-%d')
+    prev = prev[prev.period_months == 12].rename(columns={'sales': 'sales_prev_record'})
+    std = std.merge(prev[['entity_id', 'next_end', 'sales_prev_record']], left_on=['entity_id', 'period_end'],
+                    right_on=['entity_id', 'next_end'], how='left').drop(columns='next_end')
+    std['sales_prior'] = std.sales_prior.fillna(std.sales_prev_record)
+    std = std.drop(columns='sales_prev_record')
     std, log = qc(std)
     tb = std.tier != 'A_source_reviewed'
     std.loc[tb, 'total_liabilities'] = (std.total_assets - std.equity - std.minority.fillna(0))[tb]

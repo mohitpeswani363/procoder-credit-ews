@@ -1,0 +1,37 @@
+entity_id,period_end,fields,reason
+AMTEK,2011-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+AMTEK,2012-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+DLF,2013-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+DLF,2014-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+DLF,2015-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+DLF,2016-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+ILFS_PARENT,2016-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+ILFS_PARENT,2017-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+TATASTEEL,2013-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+TATASTEEL,2014-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+TATASTEEL,2015-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+TATASTEEL,2016-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+VMART,2016-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+VMART,2017-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+VMART,2018-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+VMART,2019-03-31,"current_assets,current_liabilities",current assets identical to current liabilities (total-row extraction)
+APL,2013-03-31,current_assets,current assets < 2% of assets (sub-total extracted)
+APL,2015-03-31,current_assets,current assets < 2% of assets (sub-total extracted)
+ITNL,2017-03-31,current_assets,current assets < 2% of assets (sub-total extracted)
+APL,2013-03-31,equity,equity exceeds assets
+LANCO,2013-03-31,depreciation,depreciation implausibly small
+OBEROI,2013-03-31,depreciation,depreciation implausibly small
+APL,2014-03-31,"inventory,receivables",inventory + receivables exceed current assets
+HCC,2016-03-31,"inventory,receivables",inventory + receivables exceed current assets
+TRENT,2016-03-31,"inventory,receivables",inventory + receivables exceed current assets
+TRENT,2017-03-31,"inventory,receivables",inventory + receivables exceed current assets
+APL,2013-03-31,"total_liabilities,equity",derived liabilities non-positive
+OBEROI,2013-03-31,sales,non-positive sales
+SUNDRAM,2011-03-31,net_income,net income magnitude implausible
+SUNDRAM,2012-03-31,net_income,net income magnitude implausible
+SUNDRAM,2011-03-31,depreciation,depreciation implausible
+SUNDRAM,2012-03-31,depreciation,depreciation implausible
+SUNDRAM,2011-03-31,finance_costs,finance costs implausible
+SUNDRAM,2012-03-31,finance_costs,finance costs implausible
+SUNDRAM,2011-03-31,sales,sales/assets ratio implies unit error
+SUNDRAM,2012-03-31,sales,sales/assets ratio implies unit error

@@ -76,7 +76,8 @@ def beneish_proxy(c, p):
 
 def score_panel(root, panel):
     out = root / 'results/v2/benchmark'
-    m1 = joblib.load(out / 'model_1y.joblib'); m2 = joblib.load(out / 'model_2y.joblib')
+    m1 = joblib.load(out / 'model_1y_transfer_safe.joblib'); m2 = joblib.load(out / 'model_2y_transfer_safe.joblib')
+    m1i = joblib.load(out / 'model_1y.joblib')
     v1 = joblib.load(root / 'results/benchmark/model.joblib')
     recs = panel.to_dict('records')
     prior = {(r['entity_id'], r['period_end']): r for r in recs}
@@ -94,6 +95,7 @@ def score_panel(root, panel):
                      'score_1y': float(m1.predict_proba(X)[:, 1][0]),
                      'score_2y': float(m2.predict_proba(X)[:, 1][0]),
                      'score_v1': float(v1.predict_proba(X[FEATURES_V1])[:, 1][0]),
+                     'score_1y_with_indicators': float(m1i.predict_proba(X)[:, 1][0]),
                      'altman_zpp': zpp(rat), 'interest_cover': rat['X27'],
                      'beneish_m_proxy': m, 'cfo': r.get('cfo')})
     s = pd.DataFrame(rows)
@@ -107,17 +109,22 @@ def score_panel(root, panel):
 
 def thresholds(root):
     out = root / 'results/v2/benchmark'
-    met = json.loads((out / 'metrics_v2.json').read_text())
+    met = json.loads((out / 'metrics_transfer_safe.json').read_text())
     t = {}
     for h in ['1y', '2y']:
-        dev = pd.read_csv(out / f'development_oof_{h}.csv')
-        t[h] = {'capacity_5pct': float(np.quantile(dev.score, .95)),
-                'cost_20to1': met['horizons'][h]['feature_sets']['v2_25']['dev_cost_threshold']}
+        dev = pd.read_csv(out / f'development_oof_{h}_transfer_safe.csv')
+        t[h] = {'capacity_5pct': float(np.quantile(dev.score, .95)), 'cost_20to1': met[h]['dev_cost_threshold']}
+    dev = pd.read_csv(out / 'development_oof_1y.csv')
+    t['1y_with_indicators'] = float(np.quantile(dev.score, .95))
     return t
 
 
+MIN_FEATURES = 13  # a record with fewer than ~half the 25 ratios goes to manual review, not the model
+
+
 def asof(scored, entity, cutoff):
-    x = scored[(scored.entity_id == entity) & (scored.public_available_at <= cutoff) & scored.minimum_record
+    ok = scored.minimum_record & (scored.features_present >= MIN_FEATURES) if 'features_present' in scored else scored.minimum_record
+    x = scored[(scored.entity_id == entity) & (scored.public_available_at <= cutoff) & ok
                & (scored.period_end <= cutoff)]
     return None if x.empty else x.sort_values('period_end').iloc[-1]
 
@@ -148,6 +155,8 @@ def replay(root, scored, thr, lags_label='lag6', restructuring=False):
                             'model_flag': sc > thr[h]['capacity_5pct'],
                             'model_flag_cost_threshold': sc > thr[h]['cost_20to1'] if thr[h]['cost_20to1'] is not None else False,
                             'v1_flag': r.score_v1 > thr['v1_capacity'],
+                            'with_indicators_flag': r.score_1y_with_indicators > thr['1y_with_indicators'],
+                            'features_present': r.features_present,
                             'altman_zpp': r.altman_zpp, 'interest_cover': r.interest_cover,
                             'beneish_m_proxy': r.beneish_m_proxy, 'overlay_count': r.overlay_count,
                             'overlay_flag': r.overlay_count >= 2, 'zpp_flag': bool(r.flag_zpp)})
@@ -163,7 +172,7 @@ def summarise(o):
         c, p = x[x.role == 'case'], x[x.role == 'peer']
         d = {'cases_total': int((o[(o.lead_q == L)].role == 'case').sum()), 'cases_evaluable': len(c),
              'peer_observations_evaluable': len(p)}
-        for flag in ['model_flag', 'model_flag_cost_threshold', 'v1_flag', 'zpp_flag', 'overlay_flag', 'combined_flag']:
+        for flag in ['model_flag', 'model_flag_cost_threshold', 'v1_flag', 'with_indicators_flag', 'zpp_flag', 'overlay_flag', 'combined_flag']:
             tp = int(c[flag].astype(bool).sum()); fp = int(p[flag].astype(bool).sum())
             fn = len(c) - tp
             d[flag] = {'recall': tp / len(c) if len(c) else None, 'caught': tp,
@@ -194,10 +203,10 @@ def pre_event_years(scored, root):
     ents = pd.read_csv(root / 'data/curated/entities.csv'); excluded = set(ents[ents.role == 'excluded_control'].entity_id)
     rows = []
     for case, ev in fd.iterrows():
-        cs = scored[(scored.entity_id == case) & (scored.period_end < ev.date) & scored.minimum_record].sort_values('period_end').tail(3)
+        cs = scored[(scored.entity_id == case) & (scored.period_end < ev.date) & scored.minimum_record & (scored.features_present >= MIN_FEATURES)].sort_values('period_end').tail(3)
         peers = [p for p in matches[matches.case_id == case].peer_id if p not in excluded]
         for k, r in enumerate(cs.itertuples()):
-            ps = scored[scored.entity_id.isin(peers) & (scored.period_end == r.period_end) & scored.minimum_record]
+            ps = scored[scored.entity_id.isin(peers) & (scored.period_end == r.period_end) & scored.minimum_record & (scored.features_present >= MIN_FEATURES)]
             rows.append({'case': case, 'years_before_event': len(cs) - k, 'period_end': r.period_end.date(),
                          'case_score_1y': r.score_1y, 'peer_median_score_1y': ps.score_1y.median() if len(ps) else None,
                          'case_zpp': r.altman_zpp, 'peer_median_zpp': ps.altman_zpp.median() if len(ps) else None,
@@ -212,7 +221,7 @@ def firm_year_auc(scored, root):
     fd = first_default(root).set_index('entity_id')
     ents = pd.read_csv(root / 'data/curated/entities.csv')
     peers = set(ents[ents.role.isin(['peer', 'supplementary_peer'])].entity_id)
-    s = scored[scored.minimum_record].copy()
+    s = scored[scored.minimum_record & (scored.features_present >= MIN_FEATURES)].copy()
     s['y'] = np.nan
     for case, ev in fd.iterrows():
         m = (s.entity_id == case) & (s.period_end < ev.date) & (s.period_end >= ev.date - pd.DateOffset(years=3))
@@ -220,7 +229,7 @@ def firm_year_auc(scored, root):
     s.loc[s.entity_id.isin(peers), 'y'] = 0
     s = s[s.y.notna()]
     res = {'positives': int(s.y.sum()), 'negatives': int((s.y == 0).sum())}
-    for col, sign in [('score_1y', 1), ('score_2y', 1), ('score_v1', 1), ('altman_zpp', -1), ('interest_cover', -1)]:
+    for col, sign in [('score_1y', 1), ('score_2y', 1), ('score_v1', 1), ('score_1y_with_indicators', 1), ('altman_zpp', -1), ('interest_cover', -1)]:
         v = s[col].astype(float) * sign; ok = v.notna()
         res[f'auc_{col}'] = float(roc_auc_score(s.y[ok], v[ok]))
         res[f'n_{col}'] = int(ok.sum())
@@ -232,7 +241,7 @@ def explain_flagged(root, scored, obs, out, n_perm=40):
     split = pd.read_csv(root / 'results/benchmark/frozen_split.csv')
     dev = clean.loc[split.split.to_numpy() == 'development', FEATURES]
     bg = dev.sample(32, random_state=7).to_numpy(dtype=float)
-    model = joblib.load(root / 'results/v2/benchmark/model_1y.joblib')
+    model = joblib.load(root / 'results/v2/benchmark/model_1y_transfer_safe.joblib')
     predict = lambda a: model.predict_proba(pd.DataFrame(a, columns=FEATURES))[:, 1]
     sel = obs[(obs.lead_q == 4) & obs.evaluable & (obs.combined_flag | (obs.role == 'case'))]
     cards, contrib = [], []
@@ -321,7 +330,7 @@ def plots(root, scored, obs, pre, out):
         p = gx[gx.role == 'peer']; c = gx[gx.role == 'case']
         ax.scatter([i] * len(p), p.score, color='#087f8c', alpha=.7, s=30, label='Matched peer' if i == 0 else None)
         ax.scatter([i] * len(c), c.score, color='#c0392b', s=70, marker='D', label='Defaulter' if i == 0 else None)
-    t = json.loads((out.parent / 'benchmark/metrics_v2.json').read_text())['operating_point_1y']['top5_equivalent_threshold']
+    t = float(np.quantile(pd.read_csv(out.parent / 'benchmark/development_oof_1y_transfer_safe.csv').score, .95))
     ax.axhline(t, color='#555', ls='--', lw=1, label='5% capacity threshold')
     ax.set_xticks(range(len(groups)), groups, rotation=30, ha='right')
     ax.set(ylabel='EWS score at cutoff', title='4-quarter-ahead replay: defaulter vs matched peers at the same cutoff')

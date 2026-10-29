@@ -1,0 +1,434 @@
+[
+  {
+    "entity_id": "BHUSHAN",
+    "role": "case",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.8545805927674485,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": true,
+    "altman_zpp": 0.8280294608426001,
+    "interest_cover": 2.294572965546584,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.7652344762597769,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.2947774130797877,
+        "contribution": 0.050604283575617845,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X22",
+        "label": "Operating profit / assets",
+        "value": 0.07119493386435564,
+        "contribution": 0.016652079680175593,
+        "investigate": "Review core operating profitability excluding other income."
+      }
+    ]
+  },
+  {
+    "entity_id": "JSW",
+    "role": "peer",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.7758333544480197,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": 0.5149268578407478,
+    "interest_cover": 2.3965879632873257,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.7485308003523903,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.3350559647111871,
+        "contribution": 0.04894537935701046,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": 2.3965879632873257,
+        "contribution": 0.01052914661979038,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      }
+    ]
+  },
+  {
+    "entity_id": "TATASTEEL",
+    "role": "peer",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.7319523495850543,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": 2.0557937209166988,
+    "interest_cover": 3.0199430132396574,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.7421766902535557,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.6515502866788452,
+        "contribution": 0.025209754593122403,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X22",
+        "label": "Operating profit / assets",
+        "value": 0.08717112233510205,
+        "contribution": 0.013032430644653353,
+        "investigate": "Review core operating profitability excluding other income."
+      }
+    ]
+  },
+  {
+    "entity_id": "SAIL",
+    "role": "peer",
+    "case_group": "BHUSHAN",
+    "cutoff": "2012-12-31",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.6222031721909685,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": 3.931284441019813,
+    "interest_cover": 7.788503797370755,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.6877041610220234,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.7883613157151416,
+        "contribution": 0.020464481950734924,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X22",
+        "label": "Operating profit / assets",
+        "value": 0.07721170648906353,
+        "contribution": 0.010251515523010669,
+        "investigate": "Review core operating profitability excluding other income."
+      }
+    ]
+  },
+  {
+    "entity_id": "ALOK",
+    "role": "case",
+    "case_group": "ALOK",
+    "cutoff": "2014-03-31",
+    "accounts_period_end": "2013-09-30",
+    "score": 0.9220973345072578,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": NaN,
+    "interest_cover": NaN,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.6905089988543949,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": null,
+        "contribution": 0.21189561158773004,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.7732434603040739,
+        "contribution": 0.024771741961694137,
+        "investigate": "Assess liquid assets against short-term obligations."
+      }
+    ]
+  },
+  {
+    "entity_id": "AMTEK",
+    "role": "case",
+    "case_group": "AMTEK",
+    "cutoff": "2014-06-30",
+    "accounts_period_end": "2012-03-31",
+    "score": 0.5157061419459587,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": NaN,
+    "interest_cover": 3.2092123306869977,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.645918041266471,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": 3.2092123306869977,
+        "contribution": 0.008581240412782154,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": null,
+        "contribution": 0.0059040740673359125,
+        "investigate": "Assess liquid assets against short-term obligations."
+      }
+    ]
+  },
+  {
+    "entity_id": "LANCO",
+    "role": "case",
+    "case_group": "LANCO",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.9156109167952041,
+    "base": 0.054489879684924344,
+    "model_flag": true,
+    "overlay_flag": false,
+    "altman_zpp": NaN,
+    "interest_cover": NaN,
+    "top_drivers": [
+      {
+        "feature": "X21",
+        "label": "Sales growth",
+        "value": null,
+        "contribution": 0.7458901125226878,
+        "investigate": "Check whether revenue is shrinking or growth is debt-funded."
+      },
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": null,
+        "contribution": 0.14148771192567117,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      },
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.4903862794166527,
+        "contribution": 0.027105339796209466,
+        "investigate": "Assess liquid assets against short-term obligations."
+      }
+    ]
+  },
+  {
+    "entity_id": "JYOTI",
+    "role": "case",
+    "case_group": "JYOTI",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.25523724758084704,
+    "base": 0.054489879684924344,
+    "model_flag": false,
+    "overlay_flag": false,
+    "altman_zpp": NaN,
+    "interest_cover": NaN,
+    "top_drivers": [
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": null,
+        "contribution": 0.2225033243618845,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      },
+      {
+        "feature": "X6",
+        "label": "Retained earnings / assets",
+        "value": 0.06534083128953329,
+        "contribution": 0.03343564993294761,
+        "investigate": "Verify the earned-reserve buffer against further losses."
+      },
+      {
+        "feature": "X51",
+        "label": "Short-term liabilities / assets",
+        "value": 0.599709004931646,
+        "contribution": 0.022823709503260448,
+        "investigate": "Short-term liabilities are a refinancing wall: check maturity profile and rollover."
+      }
+    ]
+  },
+  {
+    "entity_id": "ELECTROSTEEL",
+    "role": "case",
+    "case_group": "ELECTROSTEEL",
+    "cutoff": "2016-06-30",
+    "accounts_period_end": "2015-03-31",
+    "score": 0.05481466955501746,
+    "base": 0.054489879684924344,
+    "model_flag": false,
+    "overlay_flag": true,
+    "altman_zpp": -1.1154028405481644,
+    "interest_cover": -0.4159660842629236,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.27689687071233954,
+        "contribution": 0.047692238940347395,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X13",
+        "label": "Cash margin",
+        "value": -0.208168349487952,
+        "contribution": 0.026829914674670847,
+        "investigate": "Review cash-generating margin."
+      },
+      {
+        "feature": "X16",
+        "label": "Cash earnings / liabilities",
+        "value": -0.03440950941402648,
+        "contribution": 0.011190110871143123,
+        "investigate": "Check whether cash earnings can service total debt."
+      }
+    ]
+  },
+  {
+    "entity_id": "ITNL",
+    "role": "case",
+    "case_group": "ITNL",
+    "cutoff": "2017-03-31",
+    "accounts_period_end": "2016-03-31",
+    "score": 0.06386166979066406,
+    "base": 0.054489879684924344,
+    "model_flag": false,
+    "overlay_flag": false,
+    "altman_zpp": 0.6168388450625114,
+    "interest_cover": 1.1695622453938765,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.7231254348858529,
+        "contribution": 0.020530569101711336,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X26",
+        "label": "Net cash earnings / liabilities",
+        "value": 0.01913204310805406,
+        "contribution": 0.018084721644028308,
+        "investigate": "Check debt-service capacity from net cash earnings."
+      },
+      {
+        "feature": "X9",
+        "label": "Asset turnover",
+        "value": 0.2183629287271607,
+        "contribution": 0.014788145138628505,
+        "investigate": "Review asset utilisation and stuck/under-construction projects."
+      }
+    ]
+  },
+  {
+    "entity_id": "IRB",
+    "role": "peer",
+    "case_group": "ITNL",
+    "cutoff": "2017-03-31",
+    "accounts_period_end": "2016-03-31",
+    "score": 0.017394114183023314,
+    "base": 0.054489879684924344,
+    "model_flag": false,
+    "overlay_flag": true,
+    "altman_zpp": 0.5652906566109626,
+    "interest_cover": 1.8161709050689123,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.6955579343506026,
+        "contribution": 0.0128710816869498,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X27",
+        "label": "Interest coverage",
+        "value": 1.8161709050689123,
+        "contribution": 0.006117819746447565,
+        "investigate": "Interest cover below 1x means interest is being paid from new borrowing or asset sales."
+      },
+      {
+        "feature": "X40",
+        "label": "Cash ratio",
+        "value": 0.6635940623838965,
+        "contribution": 0.005135256583141777,
+        "investigate": "Check unrestricted cash against short-term obligations."
+      }
+    ]
+  },
+  {
+    "entity_id": "SADBHAV",
+    "role": "peer",
+    "case_group": "ITNL",
+    "cutoff": "2017-03-31",
+    "accounts_period_end": "2016-03-31",
+    "score": 0.010851487518609844,
+    "base": 0.054489879684924344,
+    "model_flag": false,
+    "overlay_flag": true,
+    "altman_zpp": 0.3829562752806812,
+    "interest_cover": 0.8303405035447025,
+    "top_drivers": [
+      {
+        "feature": "X46",
+        "label": "Quick ratio",
+        "value": 0.8660371542555778,
+        "contribution": 0.010804513416958487,
+        "investigate": "Assess liquid assets against short-term obligations."
+      },
+      {
+        "feature": "X26",
+        "label": "Net cash earnings / liabilities",
+        "value": 0.016541035667088064,
+        "contribution": 0.00860196221279155,
+        "investigate": "Check debt-service capacity from net cash earnings."
+      },
+      {
+        "feature": "X16",
+        "label": "Cash earnings / liabilities",
+        "value": 0.010882413074821391,
+        "contribution": 0.004249569250811254,
+        "investigate": "Check whether cash earnings can service total debt."
+      }
+    ]
+  }
+]

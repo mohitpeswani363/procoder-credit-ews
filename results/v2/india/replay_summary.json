@@ -2,212 +2,93 @@
   "method": "Indian point-in-time replay: cases vs matched peers at 4- and 8-quarter leads.\n\nFor every case, the warning cutoff is the last quarter-end at least L quarters\nbefore the FIRST documented default (earlier payment default where documented,\notherwise CIRP admission). At that cutoff the case and each of its matched\npeers are scored using ONLY the latest annual accounts public by then\n(ews/panel.py availability rule). Horizon-matched models: the 1-year model at\n4 quarters, the 2-year model at 8 quarters.\n\nAlert thresholds are fixed BEFORE looking at Indian outcomes:\n* capacity threshold = 95th percentile of the model's development out-of-fold\n  scores, i.e. the score above which a borrower would sit in the top 5% (40/800)\n  of a book with benchmark-like risk mix;\n* the 20:1 cost-optimal development threshold is reported as a sensitivity.\nThe rule overlay uses textbook cut-offs (Altman Z'' < 1.10 distress zone,\ninterest cover < 1x, Beneish M > -1.78, negative operating cash flow).",
   "thresholds": {
     "1y": {
-      "capacity_5pct": 0.3981872856576864,
-      "cost_20to1": 0.40056008394367154
+      "capacity_5pct": 0.3863907664742561,
+      "cost_20to1": 0.3903288889920506
     },
     "2y": {
-      "capacity_5pct": 0.19483682180862913,
-      "cost_20to1": 0.1997044129711744
+      "capacity_5pct": 0.19972325393071072,
+      "cost_20to1": 0.20288150849301984
     },
+    "1y_with_indicators": 0.3981872856576864,
     "v1_capacity": 0.2822979702297886
   },
   "lag6m": {
     "4q": {
       "cases_total": 11,
-      "cases_evaluable": 7,
+      "cases_evaluable": 6,
       "peer_observations_evaluable": 19,
       "model_flag": {
-        "recall": 0.5714285714285714,
-        "caught": 4,
-        "peer_false_alert_rate": 0.15789473684210525,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 120
       },
       "model_flag_cost_threshold": {
-        "recall": 0.5714285714285714,
-        "caught": 4,
-        "peer_false_alert_rate": 0.15789473684210525,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 120
       },
       "v1_flag": {
         "recall": 0.0,
         "caught": 0,
         "peer_false_alert_rate": 0.0,
         "peer_false_alerts": 0,
-        "cost_20FN_plus_FP": 140
+        "cost_20FN_plus_FP": 120
+      },
+      "with_indicators_flag": {
+        "recall": 0.16666666666666666,
+        "caught": 1,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
       },
       "zpp_flag": {
-        "recall": 0.42857142857142855,
+        "recall": 0.5,
         "caught": 3,
         "peer_false_alert_rate": 0.21052631578947367,
         "peer_false_alerts": 4,
-        "cost_20FN_plus_FP": 84
+        "cost_20FN_plus_FP": 64
       },
       "overlay_flag": {
-        "recall": 0.2857142857142857,
+        "recall": 0.3333333333333333,
         "caught": 2,
         "peer_false_alert_rate": 0.10526315789473684,
-        "peer_false_alerts": 2,
-        "cost_20FN_plus_FP": 102
-      },
-      "combined_flag": {
-        "recall": 0.7142857142857143,
-        "caught": 5,
-        "peer_false_alert_rate": 0.2631578947368421,
-        "peer_false_alerts": 5,
-        "cost_20FN_plus_FP": 45
-      },
-      "no_alert_cost": 140,
-      "auc_case_vs_peers_model": 0.8796992481203008,
-      "auc_case_vs_peers_v1": 0.7368421052631579,
-      "auc_case_vs_peers_neg_zpp": 0.7878787878787878,
-      "mean_share_of_peers_ranked_below_case": 1.0
-    },
-    "8q": {
-      "cases_total": 11,
-      "cases_evaluable": 6,
-      "peer_observations_evaluable": 17,
-      "model_flag": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.7058823529411765,
-        "peer_false_alerts": 12,
-        "cost_20FN_plus_FP": 72
-      },
-      "model_flag_cost_threshold": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.7058823529411765,
-        "peer_false_alerts": 12,
-        "cost_20FN_plus_FP": 72
-      },
-      "v1_flag": {
-        "recall": 0.0,
-        "caught": 0,
-        "peer_false_alert_rate": 0.0,
-        "peer_false_alerts": 0,
-        "cost_20FN_plus_FP": 120
-      },
-      "zpp_flag": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.23529411764705882,
-        "peer_false_alerts": 4,
-        "cost_20FN_plus_FP": 64
-      },
-      "overlay_flag": {
-        "recall": 0.3333333333333333,
-        "caught": 2,
-        "peer_false_alert_rate": 0.058823529411764705,
-        "peer_false_alerts": 1,
-        "cost_20FN_plus_FP": 81
-      },
-      "combined_flag": {
-        "recall": 0.8333333333333334,
-        "caught": 5,
-        "peer_false_alert_rate": 0.7647058823529411,
-        "peer_false_alerts": 13,
-        "cost_20FN_plus_FP": 33
-      },
-      "no_alert_cost": 120,
-      "auc_case_vs_peers_model": 0.5294117647058825,
-      "auc_case_vs_peers_v1": 0.9215686274509803,
-      "auc_case_vs_peers_neg_zpp": 0.8125,
-      "mean_share_of_peers_ranked_below_case": 0.6
-    }
-  },
-  "firm_year_discrimination": {
-    "positives": 15,
-    "negatives": 104,
-    "auc_score_1y": 0.7301282051282052,
-    "n_score_1y": 119,
-    "auc_score_2y": 0.6307692307692309,
-    "n_score_2y": 119,
-    "auc_score_v1": 0.8948717948717949,
-    "n_score_v1": 119,
-    "auc_altman_zpp": 0.9272727272727272,
-    "n_altman_zpp": 62,
-    "auc_interest_cover": 0.696629213483146,
-    "n_interest_cover": 99
-  },
-  "panel": {
-    "firm_years": 205,
-    "usable_firm_years": 142,
-    "entities": 46,
-    "tier_A_records": 17,
-    "qc_blanked_fields": 36
-  },
-  "sensitivity_restructuring_as_default": {
-    "4q": {
-      "cases_total": 11,
-      "cases_evaluable": 6,
-      "peer_observations_evaluable": 17,
-      "model_flag": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.17647058823529413,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
-      },
-      "model_flag_cost_threshold": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.17647058823529413,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
-      },
-      "v1_flag": {
-        "recall": 0.0,
-        "caught": 0,
-        "peer_false_alert_rate": 0.0,
-        "peer_false_alerts": 0,
-        "cost_20FN_plus_FP": 120
-      },
-      "zpp_flag": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.23529411764705882,
-        "peer_false_alerts": 4,
-        "cost_20FN_plus_FP": 64
-      },
-      "overlay_flag": {
-        "recall": 0.3333333333333333,
-        "caught": 2,
-        "peer_false_alert_rate": 0.11764705882352941,
         "peer_false_alerts": 2,
         "cost_20FN_plus_FP": 82
       },
       "combined_flag": {
-        "recall": 0.6666666666666666,
-        "caught": 4,
-        "peer_false_alert_rate": 0.29411764705882354,
-        "peer_false_alerts": 5,
-        "cost_20FN_plus_FP": 45
+        "recall": 0.3333333333333333,
+        "caught": 2,
+        "peer_false_alert_rate": 0.10526315789473684,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 82
       },
       "no_alert_cost": 120,
-      "auc_case_vs_peers_model": 0.8431372549019607,
-      "auc_case_vs_peers_v1": 0.7058823529411764,
-      "auc_case_vs_peers_neg_zpp": 0.7666666666666666,
-      "mean_share_of_peers_ranked_below_case": 1.0
+      "auc_case_vs_peers_model": 0.8157894736842106,
+      "auc_case_vs_peers_v1": 0.9298245614035088,
+      "auc_case_vs_peers_neg_zpp": 0.7272727272727272,
+      "mean_share_of_peers_ranked_below_case": 0.7777777777777777
     },
     "8q": {
       "cases_total": 11,
       "cases_evaluable": 5,
       "peer_observations_evaluable": 13,
       "model_flag": {
-        "recall": 0.4,
-        "caught": 2,
-        "peer_false_alert_rate": 0.6923076923076923,
-        "peer_false_alerts": 9,
-        "cost_20FN_plus_FP": 69
+        "recall": 0.2,
+        "caught": 1,
+        "peer_false_alert_rate": 0.23076923076923078,
+        "peer_false_alerts": 3,
+        "cost_20FN_plus_FP": 83
       },
       "model_flag_cost_threshold": {
-        "recall": 0.4,
-        "caught": 2,
-        "peer_false_alert_rate": 0.6923076923076923,
-        "peer_false_alerts": 9,
-        "cost_20FN_plus_FP": 69
+        "recall": 0.2,
+        "caught": 1,
+        "peer_false_alert_rate": 0.23076923076923078,
+        "peer_false_alerts": 3,
+        "cost_20FN_plus_FP": 83
       },
       "v1_flag": {
         "recall": 0.0,
@@ -215,6 +96,13 @@
         "peer_false_alert_rate": 0.0,
         "peer_false_alerts": 0,
         "cost_20FN_plus_FP": 100
+      },
+      "with_indicators_flag": {
+        "recall": 0.4,
+        "caught": 2,
+        "peer_false_alert_rate": 0.5384615384615384,
+        "peer_false_alerts": 7,
+        "cost_20FN_plus_FP": 67
       },
       "zpp_flag": {
         "recall": 0.6,
@@ -231,123 +119,280 @@
         "cost_20FN_plus_FP": 61
       },
       "combined_flag": {
-        "recall": 0.8,
-        "caught": 4,
-        "peer_false_alert_rate": 0.7692307692307693,
-        "peer_false_alerts": 10,
-        "cost_20FN_plus_FP": 30
+        "recall": 0.6,
+        "caught": 3,
+        "peer_false_alert_rate": 0.3076923076923077,
+        "peer_false_alerts": 4,
+        "cost_20FN_plus_FP": 44
       },
       "no_alert_cost": 100,
-      "auc_case_vs_peers_model": 0.4461538461538462,
-      "auc_case_vs_peers_v1": 0.8769230769230769,
+      "auc_case_vs_peers_model": 0.5538461538461539,
+      "auc_case_vs_peers_v1": 0.9384615384615385,
       "auc_case_vs_peers_neg_zpp": 0.8125,
-      "mean_share_of_peers_ranked_below_case": 0.5
+      "mean_share_of_peers_ranked_below_case": 0.5833333333333333
+    }
+  },
+  "firm_year_discrimination": {
+    "positives": 14,
+    "negatives": 98,
+    "auc_score_1y": 0.7295918367346939,
+    "n_score_1y": 112,
+    "auc_score_2y": 0.706268221574344,
+    "n_score_2y": 112,
+    "auc_score_v1": 0.9220116618075802,
+    "n_score_v1": 112,
+    "auc_score_1y_with_indicators": 0.7332361516034985,
+    "n_score_1y_with_indicators": 112,
+    "auc_altman_zpp": 0.9272727272727272,
+    "n_altman_zpp": 62,
+    "auc_interest_cover": 0.6908045977011494,
+    "n_interest_cover": 97
+  },
+  "panel": {
+    "firm_years": 205,
+    "usable_firm_years": 142,
+    "entities": 46,
+    "tier_A_records": 17,
+    "qc_blanked_fields": 36
+  },
+  "sensitivity_restructuring_as_default": {
+    "4q": {
+      "cases_total": 11,
+      "cases_evaluable": 5,
+      "peer_observations_evaluable": 17,
+      "model_flag": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
+      },
+      "model_flag_cost_threshold": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
+      },
+      "v1_flag": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
+      },
+      "with_indicators_flag": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
+      },
+      "zpp_flag": {
+        "recall": 0.6,
+        "caught": 3,
+        "peer_false_alert_rate": 0.23529411764705882,
+        "peer_false_alerts": 4,
+        "cost_20FN_plus_FP": 44
+      },
+      "overlay_flag": {
+        "recall": 0.4,
+        "caught": 2,
+        "peer_false_alert_rate": 0.11764705882352941,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 62
+      },
+      "combined_flag": {
+        "recall": 0.4,
+        "caught": 2,
+        "peer_false_alert_rate": 0.11764705882352941,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 62
+      },
+      "no_alert_cost": 100,
+      "auc_case_vs_peers_model": 0.7529411764705882,
+      "auc_case_vs_peers_v1": 0.9294117647058823,
+      "auc_case_vs_peers_neg_zpp": 0.7,
+      "mean_share_of_peers_ranked_below_case": 0.7333333333333333
+    },
+    "8q": {
+      "cases_total": 11,
+      "cases_evaluable": 4,
+      "peer_observations_evaluable": 10,
+      "model_flag": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.2,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 82
+      },
+      "model_flag_cost_threshold": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.2,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 82
+      },
+      "v1_flag": {
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 80
+      },
+      "with_indicators_flag": {
+        "recall": 0.25,
+        "caught": 1,
+        "peer_false_alert_rate": 0.6,
+        "peer_false_alerts": 6,
+        "cost_20FN_plus_FP": 66
+      },
+      "zpp_flag": {
+        "recall": 0.75,
+        "caught": 3,
+        "peer_false_alert_rate": 0.4,
+        "peer_false_alerts": 4,
+        "cost_20FN_plus_FP": 24
+      },
+      "overlay_flag": {
+        "recall": 0.5,
+        "caught": 2,
+        "peer_false_alert_rate": 0.1,
+        "peer_false_alerts": 1,
+        "cost_20FN_plus_FP": 41
+      },
+      "combined_flag": {
+        "recall": 0.5,
+        "caught": 2,
+        "peer_false_alert_rate": 0.3,
+        "peer_false_alerts": 3,
+        "cost_20FN_plus_FP": 43
+      },
+      "no_alert_cost": 80,
+      "auc_case_vs_peers_model": 0.44999999999999996,
+      "auc_case_vs_peers_v1": 0.9,
+      "auc_case_vs_peers_neg_zpp": 0.8125,
+      "mean_share_of_peers_ranked_below_case": 0.4444444444444444
     }
   },
   "lag9m": {
     "4q": {
       "cases_total": 11,
-      "cases_evaluable": 7,
+      "cases_evaluable": 5,
       "peer_observations_evaluable": 19,
       "model_flag": {
-        "recall": 0.5714285714285714,
-        "caught": 4,
-        "peer_false_alert_rate": 0.15789473684210525,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
       },
       "model_flag_cost_threshold": {
-        "recall": 0.5714285714285714,
-        "caught": 4,
-        "peer_false_alert_rate": 0.15789473684210525,
-        "peer_false_alerts": 3,
-        "cost_20FN_plus_FP": 63
+        "recall": 0.0,
+        "caught": 0,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 100
       },
       "v1_flag": {
         "recall": 0.0,
         "caught": 0,
         "peer_false_alert_rate": 0.0,
         "peer_false_alerts": 0,
-        "cost_20FN_plus_FP": 140
+        "cost_20FN_plus_FP": 100
+      },
+      "with_indicators_flag": {
+        "recall": 0.2,
+        "caught": 1,
+        "peer_false_alert_rate": 0.0,
+        "peer_false_alerts": 0,
+        "cost_20FN_plus_FP": 80
       },
       "zpp_flag": {
-        "recall": 0.42857142857142855,
+        "recall": 0.6,
         "caught": 3,
         "peer_false_alert_rate": 0.21052631578947367,
         "peer_false_alerts": 4,
-        "cost_20FN_plus_FP": 84
+        "cost_20FN_plus_FP": 44
       },
       "overlay_flag": {
-        "recall": 0.2857142857142857,
+        "recall": 0.4,
         "caught": 2,
         "peer_false_alert_rate": 0.10526315789473684,
         "peer_false_alerts": 2,
-        "cost_20FN_plus_FP": 102
+        "cost_20FN_plus_FP": 62
       },
       "combined_flag": {
-        "recall": 0.7142857142857143,
-        "caught": 5,
-        "peer_false_alert_rate": 0.2631578947368421,
-        "peer_false_alerts": 5,
-        "cost_20FN_plus_FP": 45
+        "recall": 0.4,
+        "caught": 2,
+        "peer_false_alert_rate": 0.10526315789473684,
+        "peer_false_alerts": 2,
+        "cost_20FN_plus_FP": 62
       },
-      "no_alert_cost": 140,
-      "auc_case_vs_peers_model": 0.8796992481203008,
-      "auc_case_vs_peers_v1": 0.7969924812030075,
+      "no_alert_cost": 100,
+      "auc_case_vs_peers_model": 0.8842105263157896,
+      "auc_case_vs_peers_v1": 0.9578947368421052,
       "auc_case_vs_peers_neg_zpp": 0.7878787878787878,
-      "mean_share_of_peers_ranked_below_case": 1.0
+      "mean_share_of_peers_ranked_below_case": 0.9333333333333332
     },
     "8q": {
       "cases_total": 11,
-      "cases_evaluable": 6,
-      "peer_observations_evaluable": 17,
+      "cases_evaluable": 5,
+      "peer_observations_evaluable": 13,
       "model_flag": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.7058823529411765,
-        "peer_false_alerts": 12,
-        "cost_20FN_plus_FP": 72
+        "recall": 0.2,
+        "caught": 1,
+        "peer_false_alert_rate": 0.23076923076923078,
+        "peer_false_alerts": 3,
+        "cost_20FN_plus_FP": 83
       },
       "model_flag_cost_threshold": {
-        "recall": 0.5,
-        "caught": 3,
-        "peer_false_alert_rate": 0.7058823529411765,
-        "peer_false_alerts": 12,
-        "cost_20FN_plus_FP": 72
+        "recall": 0.2,
+        "caught": 1,
+        "peer_false_alert_rate": 0.23076923076923078,
+        "peer_false_alerts": 3,
+        "cost_20FN_plus_FP": 83
       },
       "v1_flag": {
         "recall": 0.0,
         "caught": 0,
         "peer_false_alert_rate": 0.0,
         "peer_false_alerts": 0,
-        "cost_20FN_plus_FP": 120
+        "cost_20FN_plus_FP": 100
+      },
+      "with_indicators_flag": {
+        "recall": 0.4,
+        "caught": 2,
+        "peer_false_alert_rate": 0.5384615384615384,
+        "peer_false_alerts": 7,
+        "cost_20FN_plus_FP": 67
       },
       "zpp_flag": {
-        "recall": 0.5,
+        "recall": 0.6,
         "caught": 3,
-        "peer_false_alert_rate": 0.23529411764705882,
+        "peer_false_alert_rate": 0.3076923076923077,
         "peer_false_alerts": 4,
-        "cost_20FN_plus_FP": 64
+        "cost_20FN_plus_FP": 44
       },
       "overlay_flag": {
-        "recall": 0.3333333333333333,
+        "recall": 0.4,
         "caught": 2,
-        "peer_false_alert_rate": 0.058823529411764705,
+        "peer_false_alert_rate": 0.07692307692307693,
         "peer_false_alerts": 1,
-        "cost_20FN_plus_FP": 81
+        "cost_20FN_plus_FP": 61
       },
       "combined_flag": {
-        "recall": 0.8333333333333334,
-        "caught": 5,
-        "peer_false_alert_rate": 0.7647058823529411,
-        "peer_false_alerts": 13,
-        "cost_20FN_plus_FP": 33
+        "recall": 0.6,
+        "caught": 3,
+        "peer_false_alert_rate": 0.3076923076923077,
+        "peer_false_alerts": 4,
+        "cost_20FN_plus_FP": 44
       },
-      "no_alert_cost": 120,
-      "auc_case_vs_peers_model": 0.5294117647058825,
-      "auc_case_vs_peers_v1": 0.9215686274509803,
+      "no_alert_cost": 100,
+      "auc_case_vs_peers_model": 0.5538461538461539,
+      "auc_case_vs_peers_v1": 0.9384615384615385,
       "auc_case_vs_peers_neg_zpp": 0.8125,
-      "mean_share_of_peers_ranked_below_case": 0.6
+      "mean_share_of_peers_ranked_below_case": 0.5833333333333333
     }
   }
 }

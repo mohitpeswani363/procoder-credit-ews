@@ -1,0 +1,52 @@
+{
+  "1y": {
+    "average_precision": 0.7052271302978886,
+    "roc_auc": 0.9391785418721444,
+    "brier": 0.034757072593274825,
+    "top5": {
+      "tp": 42,
+      "fp": 16,
+      "fn": 39,
+      "tn": 1073,
+      "cost": 796,
+      "recall": 0.5185185185185185,
+      "precision": 0.7241379310344828,
+      "alerts": 58
+    },
+    "dev_selected_config": {
+      "kind": "hist_boost",
+      "depth": 8,
+      "lr": 0.03,
+      "iters": 400,
+      "leaf": 20
+    },
+    "dev_ap": 0.6641233792783393,
+    "dev_cost_threshold": 0.3903288889920506,
+    "capacity_5pct_threshold": 0.3863907664742561
+  },
+  "2y": {
+    "average_precision": 0.655769592869809,
+    "roc_auc": 0.9174124102997044,
+    "brier": 0.0299485771001409,
+    "top5": {
+      "tp": 59,
+      "fp": 38,
+      "fn": 44,
+      "tn": 1802,
+      "cost": 918,
+      "recall": 0.5728155339805825,
+      "precision": 0.6082474226804123,
+      "alerts": 97
+    },
+    "dev_selected_config": {
+      "kind": "hist_boost",
+      "depth": 5,
+      "lr": 0.03,
+      "iters": 400,
+      "leaf": 20
+    },
+    "dev_ap": 0.5593614348245429,
+    "dev_cost_threshold": 0.20288150849301984,
+    "capacity_5pct_threshold": 0.19972325393071078
+  }
+}
